@@ -50,12 +50,30 @@
 
     .name {
       margin-top: 20px;
+      margin-bottom: 20px;
+      text-decoration: none;
       color: #ffffff;
       font-size: 24px;
       font-weight: bold;
       text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
       opacity: 0;
       animation: fadeIn 1s ease forwards 0.5s;
+      transition: color 0.3s ease;
+    }
+
+    .name:hover {
+      color: #4a9eff;
+    }
+
+    .counter {
+      margin-top: 20px;
+      opacity: 0;
+      animation: fadeIn 1s ease forwards 1s;
+    }
+
+    .counter img {
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     }
 
     @keyframes pulse {
@@ -96,9 +114,12 @@
   <div class="particles" id="particles"></div>
   <div class="profile-card">
     <div class="avatar">
-      <img src="https://i.pinimg.com/736x/38/63/37/386337b8629611b35b5a45388be40827.jpg" alt="Profile Avatar">
+      <img src="https://i.pinimg.com/474x/61/39/d7/6139d77279de7f0ab6edb95ff006638c.jpg" alt="Profile Avatar">
     </div>
-    <div class="name">衛門</div>
+    <a href="https://emon2358.deno.dev/" class="name">衛門</a>
+    <div class="counter">
+      <img src="https://count.getloli.com/@my plofile?name=my+plofile&theme=original-new&padding=7&offset=0&align=top&scale=1&pixelated=1&darkmode=auto" alt="visitor counter">
+    </div>
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
