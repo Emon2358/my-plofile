@@ -4,14 +4,12 @@
   <style>
     body {
       margin: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
       min-height: 100vh;
       background: linear-gradient(45deg, #1a1a1a, #2d2d2d);
       font-family: 'MS Sans Serif', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       cursor: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAA7AAAAOwBeShxvQAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAABSdEVYdENvcHlyaWdodABDQyBBdHRyaWJ1dGlvbi1TaGFyZUFsaWtlIGh0dHA6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LXNhLzQuMC/DVGIFAAAA+0lEQVQ4jY2TIW7DQBBFn4lVIYeocAXfoUdw6Q16hJTW9hGqHiFHqJQjpNtuu7Z3QSCoQoQeYf6AZneNnaSJ9KXVaP6bmTejES2cc7vMbA+8AFvgDTgDR+fcuR1bxUTEU0QcI6KKiCoijhHhW7xzzu2AE7ABJmAGpsb2jZ0auwFOzrld+wHgICkDhaTcWvvR+CxpBhQhhJ/nBGa2l1RKmkpauvG6TQA+gZf/Kq0K+JaUufHyp4Il0EmaJE2S5g9OvhcghDAAbwuQu6Qa6K21H/6NgEvj7PP1c0mvZrYys1ML4Ht9HIAhhPD0B8DM9sC+52dmR0nHEMJwW98rXgEaCWpkpH/AlQAAAABJRU5ErkJggg=='), auto;
-      overflow: hidden;
+      overflow-y: auto;
+      overflow-x: hidden;
     }
 
     .container {
@@ -19,10 +17,13 @@
       flex-direction: column;
       align-items: center;
       gap: 20px;
-      padding: 20px;
+      padding: 40px 20px;
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
     }
 
-    /* Windows 98 ウィンドウスタイル */
     .profile-window, .music-window {
       background: #c0c0c0;
       border-radius: 0;
@@ -32,13 +33,12 @@
       box-shadow: 2px 2px 0 #808080;
       padding: 2px;
       position: relative;
-      z-index: 1000;
+      width: 100%;
+      max-width: 600px;
     }
 
     .music-window {
       margin-top: 20px;
-      width: 100%;
-      max-width: 600px;
     }
 
     .title-bar, .music-title-bar {
@@ -82,7 +82,6 @@
       border-bottom-color: #fff;
     }
 
-    /* プロファイルカード */
     .profile-card {
       background: rgba(255, 255, 255, 0.1);
       backdrop-filter: blur(10px);
@@ -112,7 +111,6 @@
       transform: scale(1.1);
     }
 
-    /* ネオン名前 */
     .neon-name {
       margin-top: 20px;
       margin-bottom: 20px;
@@ -130,6 +128,7 @@
         0 0 102px #0fa,
         0 0 151px #0fa;
       animation: neon 1.5s ease-in-out infinite alternate;
+      display: inline-block;
     }
 
     .counter {
@@ -141,9 +140,10 @@
     .counter img {
       border-radius: 10px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      max-width: 100%;
+      height: auto;
     }
 
-    /* SoundCloudコンテナ */
     .soundcloud-container {
       width: 100%;
       background: #fff;
@@ -153,7 +153,6 @@
       border-bottom-color: #fff;
     }
 
-    /* ドット絵の雨 */
     .pixel-rain {
       position: fixed;
       top: -8px;
@@ -162,6 +161,7 @@
       background: transparent;
       z-index: 1;
       image-rendering: pixelated;
+      pointer-events: none;
     }
 
     .pixel-rain::after {
@@ -178,7 +178,6 @@
       opacity: 0.5;
     }
 
-    /* アニメーション */
     @keyframes neon {
       from {
         text-shadow: 
@@ -238,6 +237,26 @@
       to {
         opacity: 0;
         transform: scale(0.95);
+      }
+    }
+
+    /* レスポンシブデザインの追加 */
+    @media (max-width: 768px) {
+      .container {
+        padding: 20px 10px;
+      }
+
+      .profile-card {
+        padding: 20px;
+      }
+
+      .avatar {
+        width: 120px;
+        height: 120px;
+      }
+
+      .neon-name {
+        font-size: 20px;
       }
     }
   </style>
