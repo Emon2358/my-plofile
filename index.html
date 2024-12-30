@@ -2,6 +2,7 @@
 <html>
 <head>
   <style>
+    /* ベースのスタイル */
     body {
       margin: 0;
       display: flex;
@@ -9,21 +10,71 @@
       align-items: center;
       min-height: 100vh;
       background: linear-gradient(45deg, #1a1a1a, #2d2d2d);
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: 'MS Sans Serif', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      cursor: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAA7AAAAOwBeShxvQAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAABSdEVYdENvcHlyaWdodABDQyBBdHRyaWJ1dGlvbi1TaGFyZUFsaWtlIGh0dHA6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LXNhLzQuMC/DVGIFAAAA+0lEQVQ4jY2TIW7DQBBFn4lVIYeocAXfoUdw6Q16hJTW9hGqHiFHqJQjpNtuu7Z3QSCoQoQeYf6AZneNnaSJ9KXVaP6bmTejES2cc7vMbA+8AFvgDTgDR+fcuR1bxUTEU0QcI6KKiCoijhHhW7xzzu2AE7ABJmAGpsb2jZ0auwFOzrld+wHgICkDhaTcWvvR+CxpBhQhhJ/nBGa2l1RKmkpauvG6TQA+gZf/Kq0K+JaUufHyp4Il0EmaJE2S5g9OvhcghDAAbwuQu6Qa6K21H/6NgEvj7PP1c0mvZrYys1ML4Ht9HIAhhPD0B8DM9sC+52dmR0nHEMJwW98rXgEaCWpkpH/AlQAAAABJRU5ErkJggg=='), auto;
+      overflow: hidden;
     }
 
+    /* Windows 98スタイルのウィンドウ */
+    .profile-window {
+      background: #c0c0c0;
+      border-radius: 0;
+      border: 2px solid #fff;
+      border-right-color: #000;
+      border-bottom-color: #000;
+      box-shadow: 2px 2px 0 #808080;
+      padding: 2px;
+      position: relative;
+      z-index: 1000;
+    }
+
+    .title-bar {
+      background: #000080;
+      padding: 2px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .title-text {
+      color: white;
+      font-weight: bold;
+      font-size: 12px;
+      margin-left: 4px;
+    }
+
+    .window-controls {
+      display: flex;
+    }
+
+    .window-button {
+      width: 16px;
+      height: 14px;
+      background: #c0c0c0;
+      border: 1px solid #fff;
+      border-right-color: #000;
+      border-bottom-color: #000;
+      margin-left: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-family: 'MS Sans Serif', sans-serif;
+      font-size: 10px;
+    }
+
+    .window-button:active {
+      border: 1px solid #000;
+      border-right-color: #fff;
+      border-bottom-color: #fff;
+    }
+
+    /* プロファイルカードのスタイル */
     .profile-card {
       background: rgba(255, 255, 255, 0.1);
       backdrop-filter: blur(10px);
-      border-radius: 20px;
       padding: 40px;
       text-align: center;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-      transition: transform 0.3s ease;
-    }
-
-    .profile-card:hover {
-      transform: translateY(-10px);
     }
 
     .avatar {
@@ -48,21 +99,24 @@
       transform: scale(1.1);
     }
 
-    .name {
+    /* ネオンテキストのスタイル */
+    .neon-name {
       margin-top: 20px;
       margin-bottom: 20px;
       text-decoration: none;
-      color: #ffffff;
       font-size: 24px;
       font-weight: bold;
-      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-      opacity: 0;
-      animation: fadeIn 1s ease forwards 0.5s;
-      transition: color 0.3s ease;
-    }
-
-    .name:hover {
-      color: #4a9eff;
+      color: #fff;
+      text-shadow: 
+        0 0 7px #fff,
+        0 0 10px #fff,
+        0 0 21px #fff,
+        0 0 42px #0fa,
+        0 0 82px #0fa,
+        0 0 92px #0fa,
+        0 0 102px #0fa,
+        0 0 151px #0fa;
+      animation: neon 1.5s ease-in-out infinite alternate;
     }
 
     .counter {
@@ -76,16 +130,70 @@
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     }
 
+    /* ドット絵の雨のスタイル */
+    .pixel-rain {
+      position: fixed;
+      top: -8px; /* ドットのサイズ */
+      width: 8px; /* ドットのサイズ */
+      height: 8px; /* ドットのサイズ */
+      background: transparent;
+      z-index: 1;
+      image-rendering: pixelated;
+    }
+
+    .pixel-rain::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: #00ffff;
+      clip-path: polygon(
+        0% 0%, 100% 0%,
+        100% 50%, 50% 100%,
+        0% 50%
+      );
+      opacity: 0.5;
+    }
+
+    /* アニメーション定義 */
+    @keyframes neon {
+      from {
+        text-shadow: 
+          0 0 7px #fff,
+          0 0 10px #fff,
+          0 0 21px #fff,
+          0 0 42px #0fa,
+          0 0 82px #0fa,
+          0 0 92px #0fa,
+          0 0 102px #0fa,
+          0 0 151px #0fa;
+      }
+      to {
+        text-shadow: 
+          0 0 5px #fff,
+          0 0 8px #fff,
+          0 0 18px #fff,
+          0 0 38px #0fa,
+          0 0 73px #0fa,
+          0 0 80px #0fa,
+          0 0 94px #0fa,
+          0 0 140px #0fa;
+      }
+    }
+
+    @keyframes rain-fall {
+      from {
+        transform: translateY(-10vh);
+      }
+      to {
+        transform: translateY(110vh);
+      }
+    }
+
     @keyframes pulse {
-      0% {
-        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4);
-      }
-      70% {
-        box-shadow: 0 0 0 10px rgba(255, 255, 255, 0);
-      }
-      100% {
-        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
-      }
+      0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4); }
+      70% { box-shadow: 0 0 0 10px rgba(255, 255, 255, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
     }
 
     @keyframes fadeIn {
@@ -99,87 +207,69 @@
       }
     }
 
-    .particles {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: -1;
+    @keyframes fadeOut {
+      from {
+        opacity: 1;
+        transform: scale(1);
+      }
+      to {
+        opacity: 0;
+        transform: scale(0.95);
+      }
     }
   </style>
 </head>
 <body>
-  <div class="particles" id="particles"></div>
-  <div class="profile-card">
-    <div class="avatar">
-      <img src="https://i.pinimg.com/474x/61/39/d7/6139d77279de7f0ab6edb95ff006638c.jpg" alt="Profile Avatar">
+  <div class="profile-window">
+    <div class="title-bar">
+      <div class="title-text">Profile.exe</div>
+      <div class="window-controls">
+        <div class="window-button">_</div>
+        <div class="window-button">□</div>
+        <div class="window-button">×</div>
+      </div>
     </div>
-    <a href="https://emon2358.deno.dev/" class="name">衛門</a>
-    <div class="counter">
-      <img src="https://count.getloli.com/@my plofile?name=my+plofile&theme=original-new&padding=7&offset=0&align=top&scale=1&pixelated=1&darkmode=auto" alt="visitor counter">
+    <div class="profile-card">
+      <div class="avatar">
+        <img src="https://i.pinimg.com/474x/0a/0d/e4/0a0de4db0df8681d03859ede83154eff.jpg" alt="Profile Avatar">
+      </div>
+      <a href="https://emon2358.deno.dev/" class="neon-name">ɤ #衛門</a>
+      <div class="counter">
+        <img src="https://count.getloli.com/@my plofile?name=my+plofile&theme=original-new&padding=7&offset=0&align=top&scale=1&pixelated=1&darkmode=auto" alt="visitor counter">
+      </div>
     </div>
   </div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
   <script>
-    particlesJS('particles', {
-      particles: {
-        number: {
-          value: 80,
-          density: {
-            enable: true,
-            value_area: 800
-          }
-        },
-        color: {
-          value: '#ffffff'
-        },
-        shape: {
-          type: 'circle'
-        },
-        opacity: {
-          value: 0.5,
-          random: false
-        },
-        size: {
-          value: 3,
-          random: true
-        },
-        line_linked: {
-          enable: true,
-          distance: 150,
-          color: '#ffffff',
-          opacity: 0.4,
-          width: 1
-        },
-        move: {
-          enable: true,
-          speed: 2,
-          direction: 'none',
-          random: false,
-          straight: false,
-          out_mode: 'out',
-          bounce: false
+    // ドット絵の雨を生成する関数
+    function createPixelRain() {
+      const rainCount = 50;
+      for(let i = 0; i < rainCount; i++) {
+        const rain = document.createElement('div');
+        rain.className = 'pixel-rain';
+        
+        // ランダムな位置とアニメーション時間を設定
+        rain.style.left = Math.random() * 100 + 'vw';
+        rain.style.animation = `rain-fall ${Math.random() * 1 + 0.5}s linear infinite`;
+        rain.style.animationDelay = Math.random() * 2 + 's';
+        
+        document.body.appendChild(rain);
+      }
+    }
+
+    // Windows 98スタイルのウィンドウ操作
+    document.querySelectorAll('.window-button').forEach(button => {
+      button.addEventListener('click', function() {
+        if(this.textContent === '×') {
+          const window = document.querySelector('.profile-window');
+          window.style.animation = 'fadeOut 0.3s forwards';
+          setTimeout(() => window.style.display = 'none', 300);
         }
-      },
-      interactivity: {
-        detect_on: 'canvas',
-        events: {
-          onhover: {
-            enable: true,
-            mode: 'repulse'
-          },
-          onclick: {
-            enable: true,
-            mode: 'push'
-          },
-          resize: true
-        }
-      },
-      retina_detect: true
+      });
     });
+
+    // 雨のアニメーションを開始
+    createPixelRain();
   </script>
 </body>
 </html>
