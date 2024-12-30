@@ -2,7 +2,6 @@
 <html>
 <head>
   <style>
-    /* ベースのスタイル */
     body {
       margin: 0;
       display: flex;
@@ -15,8 +14,16 @@
       overflow: hidden;
     }
 
-    /* Windows 98スタイルのウィンドウ */
-    .profile-window {
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      padding: 20px;
+    }
+
+    /* Windows 98 ウィンドウスタイル */
+    .profile-window, .music-window {
       background: #c0c0c0;
       border-radius: 0;
       border: 2px solid #fff;
@@ -28,7 +35,13 @@
       z-index: 1000;
     }
 
-    .title-bar {
+    .music-window {
+      margin-top: 20px;
+      width: 100%;
+      max-width: 600px;
+    }
+
+    .title-bar, .music-title-bar {
       background: #000080;
       padding: 2px;
       display: flex;
@@ -69,7 +82,7 @@
       border-bottom-color: #fff;
     }
 
-    /* プロファイルカードのスタイル */
+    /* プロファイルカード */
     .profile-card {
       background: rgba(255, 255, 255, 0.1);
       backdrop-filter: blur(10px);
@@ -99,7 +112,7 @@
       transform: scale(1.1);
     }
 
-    /* ネオンテキストのスタイル */
+    /* ネオン名前 */
     .neon-name {
       margin-top: 20px;
       margin-bottom: 20px;
@@ -130,12 +143,22 @@
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     }
 
-    /* ドット絵の雨のスタイル */
+    /* SoundCloudコンテナ */
+    .soundcloud-container {
+      width: 100%;
+      background: #fff;
+      padding: 2px;
+      border: 2px solid #808080;
+      border-right-color: #fff;
+      border-bottom-color: #fff;
+    }
+
+    /* ドット絵の雨 */
     .pixel-rain {
       position: fixed;
-      top: -8px; /* ドットのサイズ */
-      width: 8px; /* ドットのサイズ */
-      height: 8px; /* ドットのサイズ */
+      top: -8px;
+      width: 8px;
+      height: 8px;
       background: transparent;
       z-index: 1;
       image-rendering: pixelated;
@@ -155,7 +178,7 @@
       opacity: 0.5;
     }
 
-    /* アニメーション定義 */
+    /* アニメーション */
     @keyframes neon {
       from {
         text-shadow: 
@@ -220,39 +243,58 @@
   </style>
 </head>
 <body>
-  <div class="profile-window">
-    <div class="title-bar">
-      <div class="title-text">Profile.exe</div>
-      <div class="window-controls">
-        <div class="window-button">_</div>
-        <div class="window-button">□</div>
-        <div class="window-button">×</div>
+  <div class="container">
+    <!-- プロファイルウィンドウ -->
+    <div class="profile-window">
+      <div class="title-bar">
+        <div class="title-text">Profile.exe</div>
+        <div class="window-controls">
+          <div class="window-button">_</div>
+          <div class="window-button">□</div>
+          <div class="window-button">×</div>
+        </div>
+      </div>
+      <div class="profile-card">
+        <div class="avatar">
+          <img src="https://i.pinimg.com/474x/0a/0d/e4/0a0de4db0df8681d03859ede83154eff.jpg" alt="Profile Avatar">
+        </div>
+        <a href="https://emon2358.deno.dev/" class="neon-name">ɤ #衛門</a>
+        <div class="counter">
+          <img src="https://count.getloli.com/@my plofile?name=my+plofile&theme=original-new&padding=7&offset=0&align=top&scale=1&pixelated=1&darkmode=auto" alt="visitor counter">
+        </div>
       </div>
     </div>
-    <div class="profile-card">
-      <div class="avatar">
-        <img src="https://i.pinimg.com/474x/0a/0d/e4/0a0de4db0df8681d03859ede83154eff.jpg" alt="Profile Avatar">
+
+    <!-- 音楽プレーヤーウィンドウ -->
+    <div class="music-window">
+      <div class="music-title-bar">
+        <div class="title-text">Music.exe</div>
+        <div class="window-controls">
+          <div class="window-button">_</div>
+          <div class="window-button">□</div>
+          <div class="window-button">×</div>
+        </div>
       </div>
-      <a href="https://emon2358.deno.dev/" class="neon-name">ɤ #衛門</a>
-      <div class="counter">
-        <img src="https://count.getloli.com/@my plofile?name=my+plofile&theme=original-new&padding=7&offset=0&align=top&scale=1&pixelated=1&darkmode=auto" alt="visitor counter">
+      <div class="soundcloud-container">
+        <iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/1891305413&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>
+        <div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;">
+          <a href="https://soundcloud.com/n0gejhpoqrgc" title="信者衛門" target="_blank" style="color: #cccccc; text-decoration: none;">信者衛門</a> · 
+          <a href="https://soundcloud.com/n0gejhpoqrgc/sets/6sd6xclihus5" title="こっちみんなやロリコン(作業用)" target="_blank" style="color: #cccccc; text-decoration: none;">こっちみんなやロリコン(作業用)</a>
+        </div>
       </div>
     </div>
   </div>
 
   <script>
-    // ドット絵の雨を生成する関数
+    // ドット絵の雨を生成
     function createPixelRain() {
       const rainCount = 50;
       for(let i = 0; i < rainCount; i++) {
         const rain = document.createElement('div');
         rain.className = 'pixel-rain';
-        
-        // ランダムな位置とアニメーション時間を設定
         rain.style.left = Math.random() * 100 + 'vw';
         rain.style.animation = `rain-fall ${Math.random() * 1 + 0.5}s linear infinite`;
         rain.style.animationDelay = Math.random() * 2 + 's';
-        
         document.body.appendChild(rain);
       }
     }
@@ -261,9 +303,11 @@
     document.querySelectorAll('.window-button').forEach(button => {
       button.addEventListener('click', function() {
         if(this.textContent === '×') {
-          const window = document.querySelector('.profile-window');
-          window.style.animation = 'fadeOut 0.3s forwards';
-          setTimeout(() => window.style.display = 'none', 300);
+          const window = this.closest('.profile-window, .music-window');
+          if(window) {
+            window.style.animation = 'fadeOut 0.3s forwards';
+            setTimeout(() => window.style.display = 'none', 300);
+          }
         }
       });
     });
